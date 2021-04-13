@@ -1,0 +1,50 @@
+.todo  {
+    $at : &;
+
+    cursor: pointer;
+    padding: .4rem 1rem;
+    column-gap: 1rem;
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+
+    input {
+        display: none;
+        &:checked + #{$at}__checkbox {
+            #{$at}__checkbox {
+                &-check{
+                    transform: scale(1);
+                }
+            }
+        }
+    }
+    &__input {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    &__checkbox {
+        height: 1rem;
+        width: 1rem;
+        border-radius: 6px;
+        border: 2px solid;
+        background-color: attr(data-color);
+        position: relative;
+        &-check {
+            position: absolute;
+            background-color: inherit;
+            height: calc(100% - 3px);
+            width: calc(100% - 3px);
+            left: 1.5px;
+            top: 1.5px;
+            transform-origin: center;
+            color: inherit;
+            transform: scale(0);
+            border-radius: 3px;
+        }
+    }
+
+    &__text {
+        user-select: none;
+        color: #fff;
+    }
+}

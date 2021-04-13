@@ -1,0 +1,10 @@
+.modal{
+    &__tags {
+        &-item {
+            &--selected {
+                background-color: #fff;
+                color: var(--separator);
+            }
+        }  
+    }
+}

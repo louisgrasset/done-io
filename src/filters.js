@@ -1,0 +1,4 @@
+// FILTER
+export const SHOW_ALL = 'SHOW_ALL';
+export const SHOW_COMPLETED = 'SHOW_COMPLETED';
+export const SHOW_NOT_COMPLETED = 'SHOW_NOT_COMPLETED';

@@ -1,0 +1,116 @@
+.modal {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    background-color: var(--primary-background);
+    animation: modal .2s ease-out forwards;
+    overflow: scroll;
+    padding: 2rem;
+    border-top: 1px solid var(--separator);
+    color: #fff;
+    z-index: 1;
+    &__title {
+        margin: 0;
+    }
+    &__close {
+        cursor: pointer;
+        position: absolute;
+        z-index: 2;
+        top: 1.5rem;
+        right: 1.5rem;
+        border-radius: 50%;
+        height: 1.6rem;
+        width: 1.6rem;
+        background-color: var(--separator);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &-icon {
+            height: 1rem;
+            width: 1rem;
+        }
+    }
+    @keyframes modal {
+        from {
+            opacity: 0;
+            transform: translateY(3rem);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    label {
+        margin-top: 1rem;
+        display: block;
+    }
+    &__input {
+        display: block;
+        font-size: inherit;
+        color: inherit;
+        appearance: none;
+        background-color: var(--separator);
+        border: none;
+        padding: .4rem 1rem;
+        border-radius: .2rem;
+        outline: none;
+        margin-top: .3rem;
+        margin-bottom: .2rem;
+        width: calc(100% - 2rem);
+        &--large {
+            width: 100%;
+            padding-left: 0;
+            padding-right: 0;
+            font-weight: 700;
+            font-size: 2rem;
+            background-color: transparent;
+            border-bottom: 1px solid var(--separator);
+        }
+    }
+    &__action {
+        $at : &;
+        cursor: pointer;
+        display: grid;
+        grid-template-columns: 1.5rem 1fr;
+        column-gap: .5rem;
+        justify-items: center;
+        align-items: center;
+        padding: .6rem 1rem;
+        background-color: var(--separator);
+        min-width: 6rem;
+        border-radius: 1.2rem;
+        user-select: none;
+        width: 10rem;
+        margin: 3rem auto 0;
+        &:active {
+            background-color: #fff;
+            color: var(--primary-background);
+            #{$at}{
+                &-icon {
+                    filter: invert(1);
+                }
+            } 
+        }
+        &-icon {
+            height: .9rem;
+            width: .9rem;
+        }
+    }
+    &__tags {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        &-item {
+            cursor: pointer;
+            border-radius: 3px;
+            margin-right: .3rem;
+            margin-bottom: .3rem;
+            padding: .4rem;
+            background-color: var(--separator);
+        }
+    }
+}
