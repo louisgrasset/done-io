@@ -27,11 +27,24 @@ export const App = () => {
   const [displayModalTag, setDisplayModalTag] = useState(false);
 
   const todos = useMemo(() => {
+    let searchTextInLowercase = searchText.toLowerCase();
     switch (state.options.filter) {
-      case SHOW_COMPLETED: return state.todos.filter(todo => { todo.completed === true && todo.text.startsWith(searchText); });
-      case SHOW_NOT_COMPLETED: return state.todos.filter(todo => { todo.completed === false && todo.text.startsWith(searchText); });
-      case SHOW_ALL: return state.todos.filter(todo => todo.text.startsWith(searchText));
-      default: return state.todos.filter(todo => todo.text.startsWith(searchText));
+      case SHOW_COMPLETED:
+        return state.todos.filter(
+          todo => todo.completed === true && todo.text.toLowerCase().startsWith(searchTextInLowercase)
+        );
+      case SHOW_NOT_COMPLETED:
+        return state.todos.filter(
+          todo => todo.completed === false && todo.text.toLowerCase().startsWith(searchTextInLowercase)
+        );
+      case SHOW_ALL:
+        return state.todos.filter(
+          todo => todo.text.toLowerCase().startsWith(searchTextInLowercase)
+        );
+      default:
+        return state.todos.filter(
+          todo => todo.text.toLowerCase().startsWith(searchTextInLowercase)
+        );
     }
   }, [state.options.filter, state.todos, searchText]);
 
