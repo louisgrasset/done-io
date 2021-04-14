@@ -1,8 +1,8 @@
 .section {
     $at: &;
 
-    border-top: 1px solid var(--separator);
-    border-bottom: 1px solid var(--separator);
+    border-top: 1px solid var(--secondary);
+    border-bottom: 1px solid var(--secondary);
     & + .section {
         border-top: none;
     }

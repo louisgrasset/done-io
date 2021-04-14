@@ -12,8 +12,8 @@
             height: .7rem;
             width: .7rem;
             border-radius: 50%;
-            background-color: var(--separator);
-            border: 1px solid var(--separator);
+            background-color: var(--secondary);
+            border: 1px solid var(--secondary);
         }
     }
     &__text {
@@ -21,7 +21,7 @@
     }
     &__count {
         opacity: 0.6;
-        background-color: var(--separator);
+        background-color: var(--secondary);
         display: flex;
         justify-content: center;
         align-items: center;

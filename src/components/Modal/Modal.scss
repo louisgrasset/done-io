@@ -9,7 +9,7 @@
     animation: modal .2s ease-out forwards;
     overflow: scroll;
     padding: 2rem;
-    border-top: 1px solid var(--separator);
+    border-top: 1px solid var(--secondary);
     color: #fff;
     z-index: 1;
     &__title {
@@ -24,7 +24,7 @@
         border-radius: 50%;
         height: 1.6rem;
         width: 1.6rem;
-        background-color: var(--separator);
+        background-color: var(--secondary);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -52,7 +52,7 @@
         font-size: inherit;
         color: inherit;
         appearance: none;
-        background-color: var(--separator);
+        background-color: var(--secondary);
         border: none;
         padding: .4rem 1rem;
         border-radius: .2rem;
@@ -67,7 +67,7 @@
             font-weight: 700;
             font-size: 2rem;
             background-color: transparent;
-            border-bottom: 1px solid var(--separator);
+            border-bottom: 1px solid var(--secondary);
         }
     }
     &__action {
@@ -79,7 +79,7 @@
         justify-items: center;
         align-items: center;
         padding: .6rem 1rem;
-        background-color: var(--separator);
+        background-color: var(--secondary);
         min-width: 6rem;
         border-radius: 1.2rem;
         user-select: none;
@@ -110,7 +110,7 @@
             margin-right: .3rem;
             margin-bottom: .3rem;
             padding: .4rem;
-            background-color: var(--separator);
+            background-color: var(--secondary);
         }
     }
 }
