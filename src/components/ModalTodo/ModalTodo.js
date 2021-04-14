@@ -27,7 +27,6 @@ export const ModalTodo = ({ title, close }) => {
                 setTag(state.tags.filter(tag => tag === tagSearchInput)[0]);
                 return true;
             }
-            return false;
         }
         return true;
     };
