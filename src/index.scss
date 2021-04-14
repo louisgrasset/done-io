@@ -1,9 +1,22 @@
 @import './styles/colors.scss';
 
 * {
+  & {
+    ::-webkit-scrollbar-track  {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--primary);
+      border-radius: 20px;
+    }
+    ::-webkit-scrollbar  {
+      width: 8px;
+    }
+  }
   scrollbar-color: var(--primary) transparent; /* thumb and track color */
   scrollbar-width: thin;
 }
+
 
 body {
   margin: 0;
