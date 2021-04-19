@@ -28,11 +28,35 @@
   }
   .header {
     padding: 1rem;
-    padding-bottom: 2rem;
     display: grid;
     grid-template-columns: 1fr 3rem;
     column-gap: 1rem;
     border-bottom: 1px solid var(--secondary);
+    &-demo {
+      cursor: pointer;
+      background-color: var(--secondary);
+      height: 1.2rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      text-align: center;
+      font-size: .8rem;
+      color: #fff;
+      text-transform: uppercase;
+      width: 90%;
+      opacity: 0;
+      animation: demo .3s ease-out forwards;
+      @keyframes demo {
+        from {
+          opacity: 0;
+          width: 90%;
+        }
+        to {
+          opacity: 1;
+          width: 100%;
+        }
+      }
+    }
     &-action{
       cursor: pointer;
       display: flex;
@@ -46,12 +70,12 @@
   }
   .main {
     max-height: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
     position: relative;
 
     &__action {
       cursor: pointer;
-      position: absolute;
+      position: fixed;
       bottom: 1.5rem;
       right: 1.5rem;
       border-radius: 50%;
@@ -65,6 +89,6 @@
           height: 1rem;
           width: 1rem;
       }
-  }
+    }
   }
 }

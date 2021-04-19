@@ -1,30 +1,36 @@
 import './App.scss';
 import { useSelector, useStore } from 'react-redux';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Filter, ModalTag, ModalTodo, Placeholder, Search, Section, Todo, Tag } from './components';
+import { Attribution, Filter, ModalTag, ModalTodo, ModalSettings, Placeholder, Search, Section, Todo, Tag } from './components';
+import iconSettings from './images/settings.svg';
 import iconHome from './images/home.svg';
 import iconPlus from './images/plus.svg';
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_NOT_COMPLETED } from './filters';
-import { ADD_TAG, SET_OPTION_FILTER } from './actions';
+import { ADD_TAG, ADD_TODO, SET_OPTION_FILTER } from './actions';
 
 export const App = () => {
   const store = useStore();
   const state = useSelector(s => s);
+  const [demo, setDemo] = useState(false);
 
   useEffect(() => {
-    store.dispatch({ type: ADD_TAG, payload: { text: 'Tag 1', color: '#fff' } });
-    store.dispatch({ type: ADD_TAG, payload: { text: 'Tag 2', color: '#fff' } });
-    store.dispatch({ type: ADD_TAG, payload: { text: 'Tag 3', color: '#fff' } });
-    store.dispatch({ type: ADD_TAG, payload: { text: 'Tag 4', color: '#fff' } });
-    store.dispatch({ type: ADD_TAG, payload: { text: 'Tag 5', color: '#fff' } });
-    store.dispatch({ type: ADD_TAG, payload: { text: 'Tag 6', color: '#fff' } });
-    store.dispatch({ type: ADD_TAG, payload: { text: 'Tag 7', color: '#fff' } });
-    store.dispatch({ type: ADD_TAG, payload: { text: 'Tag 8', color: '#fff' } });
-  }, [store]);
+    if (demo) {
+      store.dispatch({ type: ADD_TAG, payload: { text: 'Travail', color: '0', id: "tag-0" } });
+      store.dispatch({ type: ADD_TAG, payload: { text: 'Personnel', color: '1', id: "tag-1" } });
+      store.dispatch({ type: ADD_TAG, payload: { text: 'Association', color: '2', id: "tag-2" } });
+      store.dispatch({ type: ADD_TAG, payload: { text: 'Repas', color: '3', id: "tag-3" } });
+      store.dispatch({ type: ADD_TAG, payload: { text: 'Animaux', color: '4', id: "tag-4" } });
+      store.dispatch({ type: ADD_TODO, payload: { text: 'Finaliser la présentation', color: '1', tag: "tag-1" } });
+      store.dispatch({ type: ADD_TODO, payload: { text: 'Acheter des pommes', color: '4', tag: "tag-3" } });
+      store.dispatch({ type: ADD_TODO, payload: { text: 'Nourir les chats', color: '2', tag: "tag-4" } });
+      store.dispatch({ type: ADD_TODO, payload: { text: 'Caliner Malware', color: '2', tag: "tag-4" } });
+    }
+  }, [store, demo]);
 
   const [searchText, setSearchText] = useState('');
   const [displayModalTodo, setDisplayModalTodo] = useState(false);
   const [displayModalTag, setDisplayModalTag] = useState(false);
+  const [displayModalSettings, setDisplayModalSettings] = useState(false);
 
   const todos = useMemo(() => {
     let searchTextInLowercase = searchText.toLowerCase();
@@ -54,23 +60,27 @@ export const App = () => {
     return count;
   }, [todos]);
 
+  const showHome = () => {
+    setDisplayModalTodo(false);
+    setDisplayModalTag(false);
+    setSearchText('');
+    store.dispatch({
+      type: SET_OPTION_FILTER,
+      payload: {
+        filter: SHOW_ALL
+      }
+    });
+  };
+
   return (
     <div className="app">
+      <Attribution />
       <div className="app__wrapper">
         <div className="header">
+          {!demo && <div className="header-demo" onClick={() => setDemo(true)}>Test with demo data</div>}
           <Search searchText={searchText} setSearchText={setSearchText} />
-          <div className="header-action" onClick={() => {
-            setDisplayModalTodo(false);
-            setDisplayModalTag(false);
-            setSearchText('');
-            store.dispatch({
-              type: SET_OPTION_FILTER,
-              payload: {
-                filter: SHOW_ALL
-              }
-            });
-          }}>
-            <img className="header-action__icon" src={iconHome} alt="home" />
+          <div className="header-action" onClick={(displayModalTag || displayModalTodo ? showHome : () => setDisplayModalSettings(true))}>
+            <img className="header-action__icon" src={((displayModalTag || displayModalTodo) ? iconHome : iconSettings)} alt="home" />
           </div>
         </div>
         <div className="main">
@@ -100,6 +110,7 @@ export const App = () => {
           </Section>
           {displayModalTodo && <ModalTodo close={() => setDisplayModalTodo(false)} />}
           {displayModalTag && <ModalTag close={() => setDisplayModalTag(false)} />}
+          {displayModalSettings && <ModalSettings title="Settings" close={() => setDisplayModalSettings(false)} />}
           {
             !displayModalTodo &&
             !displayModalTag &&

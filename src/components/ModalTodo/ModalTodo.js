@@ -2,6 +2,7 @@ import './ModalTodo.scss';
 import { useState, useMemo } from "react";
 import { useSelector, useStore } from "react-redux";
 import { Modal } from '../Modal';
+import { Tag } from '../Tag';
 import { ADD_TODO } from '../../actions';
 import iconPlus from '../../images/plus.svg';
 
@@ -10,13 +11,13 @@ export const ModalTodo = ({ title, close }) => {
     const state = useSelector(s => s);
 
     const [text, setText] = useState('');
-    const [tag, setTag] = useState({});
+    const [tag, setTag] = useState(null);
     const [textInput, setTextInput] = useState([]);
     const [tagSearchInput, setTagSearchInput] = useState([]);
 
     const tags = useMemo(
         () => tagSearchInput.length
-            ? state.tags.filter(tag => tag.text.startsWith(tagSearchInput))
+            ? state.tags.filter(tag => tag.text.toLowerCase().startsWith(tagSearchInput))
             : state.tags
         , [tagSearchInput, state.tags]);
 
@@ -33,12 +34,13 @@ export const ModalTodo = ({ title, close }) => {
 
     const addTodo = () => {
         if (handleText() && handleTag()) {
+            console.log(tag.id);
             store.dispatch({
                 type: ADD_TODO,
                 payload: {
                     text,
                     tag: tag.id,
-                    color: '#fff'
+                    color: tag.color
                 }
             });
             close();
@@ -48,16 +50,14 @@ export const ModalTodo = ({ title, close }) => {
         <Modal className="modal--todo" title={title} close={close}>
             <input onBlur={handleText} autoFocus={true} placeholder="Eat vegetables" className="modal__input modal__input--large" type="text" onChange={e => setTextInput(e.target.value)} value={textInput} />
             <label>
-                <input placeholder={"Search for a tag"} className="modal__input" type="text" onChange={e => setTagSearchInput(e.target.value)} value={tagSearchInput} />
+                <input placeholder={"Search for a tag"} className="modal__input" type="text" onChange={e => setTagSearchInput(e.target.value.toLowerCase())} value={tagSearchInput} />
             </label>
             {
                 tags.length
                     ? (<div className="modal__tags">
                         {
                             tags.map((t, key) => (
-                                <span className={"modal__tags-item" + (tag.id === t.id ? " modal__tags-item--selected" : "")} onClick={() => setTag(t)} key={key}>
-                                    {t.text}
-                                </span>
+                                <Tag key={key} tag={t} selected={tag?.id === t.id} action={() => setTag(t)} />
                             ))
                         }
                     </div>)

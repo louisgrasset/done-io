@@ -6,7 +6,6 @@ export function todoReducer (state = [], action) {
         case ADD_TODO:
             return state.concat([{ id: `todo-${v4()}`, text: action.payload.text, color: action.payload.color, tag: action.payload.tag, completed: false }]);
         case REMOVE_TODO:
-            // + REMOVE_TAG
             return state.filter(todo => action.payload.id === todo.id);
         case TOGGLE_TODO:
             return state.map(todo =>
